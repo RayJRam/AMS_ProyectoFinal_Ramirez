@@ -1,0 +1,67 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity "USUARIO" as usuario {
+  * id_usuario : INT <<PK>>
+  --
+  * nombre : VARCHAR
+  * email : VARCHAR
+  * password_hash : VARCHAR
+  * rol : VARCHAR
+  * fecha_registro : TIMESTAMP
+}
+
+entity "MODULO" as modulo {
+  * id_modulo : INT <<PK>>
+  --
+  * titulo : VARCHAR
+  * descripcion : TEXT
+  * orden : INT
+}
+
+entity "LECCION" as leccion {
+  * id_leccion : INT <<PK>>
+  --
+  * titulo : VARCHAR
+  * contenido_markdown : TEXT
+  * duracion_min : INT
+  * orden : INT
+}
+
+entity "EVALUACION" as evaluacion {
+  * id_evaluacion : INT <<PK>>
+  --
+  * puntaje_minimo : INT
+}
+
+entity "PREGUNTA" as pregunta {
+  * id_pregunta : INT <<PK>>
+  --
+  * enunciado : TEXT
+  * opciones_json : JSON
+  * respuesta_correcta : INT
+}
+
+entity "PROGRESO" as progreso {
+  * id_progreso : INT <<PK>>
+  --
+  * completado : BOOLEAN
+  * puntaje_obtenido : INT
+  * fecha_actualizacion : TIMESTAMP
+}
+
+entity "CERTIFICADO" as certificado {
+  * id_certificado : INT <<PK>>
+  --
+  * codigo_verificacion : VARCHAR
+  * fecha_emision : TIMESTAMP
+}
+
+usuario ||--o{ progreso : "registra"
+modulo ||--o{ progreso : "es evaluado en"
+usuario ||--o{ certificado : "obtiene"
+modulo ||--|{ leccion : "contiene"
+modulo ||--|| evaluacion : "tiene"
+evaluacion ||--|{ pregunta : "incluye"
+@enduml

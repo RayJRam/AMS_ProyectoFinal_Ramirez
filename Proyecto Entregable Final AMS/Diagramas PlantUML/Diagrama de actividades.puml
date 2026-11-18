@@ -1,0 +1,31 @@
+@startuml
+start
+:El estudiante inicia sesión en la plataforma;
+:Selecciona un Módulo de IA Generativa;
+
+repeat
+    :Visualizar lección (Texto / Markdown / Tips);
+repeat while (¿Quedan lecciones pendientes en el módulo?) is (Sí)
+->No;
+
+:Iniciar Evaluación del Módulo;
+:Responder preguntas sobre ética, normas o tips;
+:Enviar respuestas al sistema;
+
+if (¿Puntaje obtenido >= Puntaje mínimo?) then (Sí)
+    :Registrar módulo como completado;
+    :Actualizar porcentaje de progreso global;
+    
+    if (¿Todos los módulos están completados?) then (Sí)
+        :Habilitar y generar Certificado en PDF;
+        :Descargar Certificado;
+    else (No)
+        :Desbloquear el siguiente módulo;
+    endif
+else (No)
+    :Mostrar retroalimentación de respuestas incorrectas;
+    :Habilitar reintento de evaluación;
+endif
+
+stop
+@enduml

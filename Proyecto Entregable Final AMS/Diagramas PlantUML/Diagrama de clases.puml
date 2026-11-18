@@ -1,0 +1,75 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Usuario {
+    # idUsuario: String
+    # nombre: String
+    # email: String
+    + iniciarSesion(): Boolean
+    + cerrarSesion(): Void
+}
+
+class Estudiante {
+    - fechaRegistro: Date
+    + verModulo(idModulo: String): Void
+    + realizarEvaluacion(idEvaluacion: String): Void
+    + descargarCertificado(): File
+}
+
+class Administrador {
+    - rol: String
+    + crearModulo(modulo: Modulo): Void
+    + actualizarLeccion(idLeccion: String, contenido: String): Void
+}
+
+class Modulo {
+    - idModulo: String
+    - titulo: String
+    - descripcion: String
+    - orden: Int
+    + obtenerLecciones(): List<Leccion>
+}
+
+class Leccion {
+    - idLeccion: String
+    - titulo: String
+    - contenidoMarkdown: String
+    - duracionEstimada: Int
+}
+
+class Evaluacion {
+    - idEvaluacion: String
+    - puntajeMinimo: Int
+    + validarRespuestas(respuestas: List): Int
+}
+
+class Pregunta {
+    - idPregunta: String
+    - enunciado: String
+    - opciones: List<String>
+    - respuestaCorrecta: Int
+}
+
+class Progreso {
+    - porcentajeCompletado: Float
+    - estado: String
+    + actualizarProgreso(idModulo: String): Void
+}
+
+class Certificado {
+    - idCertificado: String
+    - fechaEmision: Date
+    - codigoVerificacion: String
+    + generarPDF(): File
+}
+
+Usuario <|-- Estudiante
+Usuario <|-- Administrador
+
+Estudiante "1" -- "1" Progreso
+Estudiante "1" -- "0..*" Certificado
+Modulo "1" *-- "1..*" Leccion
+Modulo "1" *-- "0..1" Evaluacion
+Evaluacion "1" *-- "1..*" Pregunta
+Progreso "1" o-- "0..*" Modulo
+@enduml

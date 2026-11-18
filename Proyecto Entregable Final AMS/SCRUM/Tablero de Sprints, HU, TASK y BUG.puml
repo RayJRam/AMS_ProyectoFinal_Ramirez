@@ -1,0 +1,74 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+
+package "Product Backlog (Fases I - III)" as PB {
+  card "EP-01: Fase I\nPlaneación" as EP1 #E2E8F0
+  card "EP-02: Fase II\nAnálisis y Modelamiento" as EP2 #E2E8F0
+  card "EP-03: Fase III\nDiseño" as EP3 #E2E8F0
+}
+
+package "Sprint 1: Fase I. Planeación (09 nov)" as S1 {
+  card "HU-01: Problemática y Meta\n(Puntos 1.1 y 1.2)" as HU1 #DBEAFE
+  card "TASK-01: 1.1 Introducción\ny estudio inicial" as T1 #DCFCE7
+  card "TASK-02: 1.2 Objetivo\ngeneral (meta)" as T2 #DCFCE7
+
+  card "HU-02: Alcance y Factibilidad\n(Puntos 1.3 y 1.4)" as HU2 #DBEAFE
+  card "TASK-03: 1.3 Alcance\n3 módulos (incluye/excluye)" as T3 #DCFCE7
+  card "TASK-04: 1.4 Factibilidad\neconómica, operativa y técnica" as T4 #DCFCE7
+  card "BUG-01: Acotar enfoque web\ny exclusiones en 1.3" as B1 #FEE2E2
+}
+
+package "Sprint 2: Fase II. Análisis y Modelamiento (12 nov)" as S2 {
+  card "HU-03: Requerimientos\n(Puntos 2.1, 2.1.1, 2.1.2)" as HU3 #DBEAFE
+  card "TASK-05: 2.1 Análisis previo\na requerimientos" as T5 #DCFCE7
+  card "TASK-06: 2.1.1 Requerimientos\nfuncionales (RF-01..06)" as T6 #DCFCE7
+  card "TASK-07: 2.1.2 Requerimientos\nNO funcionales (RNF-01..05)" as T7 #DCFCE7
+  card "BUG-02: Exceso de formalidad\ny extensión en 2.1" as B2 #FEE2E2
+
+  card "HU-04: Diagramas UML\n(Puntos 2.2, 2.2.1, 2.2.2)" as HU4 #DBEAFE
+  card "TASK-08: 2.2.1 Diagrama\nestático de Clases" as T8 #DCFCE7
+  card "TASK-09: 2.2.2 Diagramas\nCasos de Uso y Actividades" as T9 #DCFCE7
+}
+
+package "Sprint 3: Fase III. Diseño (18 nov)" as S3 {
+  card "HU-05: Wireframes e IG\n(Puntos 3.1 y 3.3)" as HU5 #DBEAFE
+  card "TASK-10: 3.1 Wireframes\nBalsamiq" as T10 #DCFCE7
+  card "TASK-13: 3.3 Diseño de IG\nen base a RF y RNF" as T13 #DCFCE7
+
+  card "HU-06: Base de Datos\n(Puntos 3.2, 3.2.1, 3.2.2)" as HU6 #DBEAFE
+  card "TASK-11: 3.2.1 BD Conceptual\n(Diagrama ER)" as T11 #DCFCE7
+  card "TASK-12: 3.2.2 BD Físico\n(SQL y dbdiagram.io)" as T12 #DCFCE7
+  card "BUG-03: Conflicto FK SERIAL\nen MySQL y sintaxis DBML" as B3 #FEE2E2
+}
+
+' Relaciones Épica -> HU
+EP1 --> HU1
+EP1 --> HU2
+EP2 --> HU3
+EP2 --> HU4
+EP3 --> HU5
+EP3 --> HU6
+
+' Relaciones HU -> TASK
+HU1 --> T1
+HU1 --> T2
+HU2 --> T3
+HU2 --> T4
+HU3 --> T5
+HU3 --> T6
+HU3 --> T7
+HU4 --> T8
+HU4 --> T9
+HU5 --> T10
+HU5 --> T13
+HU6 --> T11
+HU6 --> T12
+
+' Relaciones BUG -> TASK
+B1 ..> T3 : corrige alcance
+B2 ..> T5 : simplifica texto
+B3 ..> T12 : corrige esquema
+@enduml
